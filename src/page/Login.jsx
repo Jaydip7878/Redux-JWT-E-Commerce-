@@ -29,6 +29,7 @@ export default function Login() {
       <div className="auth-page">
         <div className="auth-container">
           <div className="loading-message">Loadin...</div>
+          <div className="loading-message">Loadin...</div>
         </div>
       </div>
     )
