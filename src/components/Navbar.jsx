@@ -43,6 +43,7 @@ export default function Navbar() {
         <div className="navbar-menu">
           <Link to="/home" className="nav-link">Home</Link>
           <Link to="/products" className="nav-link">Products</Link>
+           <Link to="/orders" className="nav-link">Orders</Link>
           <Link to="/cart" className="nav-link">
             🛒 Cart <span className="cart-badge">{cartItems.length}</span>
           </Link>

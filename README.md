@@ -12,6 +12,7 @@ A modern, feature-rich e-commerce application built with React, Redux Toolkit, R
 - **Razorpay Integration** - Dummy payments with test credit card and UPI support
 - **User Profile** - View logged-in user details from API
 - **Stock Management** - Real-time product stock tracking
+- **Order History & Tracking** - View completed orders and track delivery status
 - **Apple-Inspired UI** - Modern, glassy design with smooth animations
 - **Dark Mode Toggle** - Switch between light and dark themes with persistent storage
 - **Responsive Design** - Fully mobile-friendly interface
@@ -105,10 +106,12 @@ src/
     ├── Home.jsx              # User profile display
     ├── Products.jsx          # Product listing with add/edit/delete modal
     ├── Cart.jsx              # Shopping cart with Razorpay checkout
-    ├── auth.css              # Login/Register styles
-    ├── home.css              # Profile page styles
-    ├── products.css          # Products page styles
-    ├── products-cards.css    # Product cards and modals
+    ├── OrderHistory.jsx         # Order history and tracking page
+    ├── auth.css                 # Login/Register styles
+    ├── home.css                 # Profile page styles
+    ├── products.css             # Products page styles
+    ├── products-cards.css       # Product cards and modals
+    ├── orderHistory.css         # Order history page styles
     └── cart.css              # Cart table styles
 ```
 
@@ -131,7 +134,8 @@ src/
   },
   cart: {
     items: [],
-    totalPrice: number
+    totalPrice: number,
+    orders: []
   }
 }
 ```
@@ -174,6 +178,7 @@ src/
 | `/home` | User profile | Yes |
 | `/products` | Product catalog with CRUD | Yes |
 | `/cart` | Shopping cart and checkout | Yes |
+| `/orders` | Order history and tracking | Yes |
 
 ## 🔑 Key Features Explained
 
@@ -200,6 +205,12 @@ src/
 3. Enter test payment details
 4. Payment successful → Cart clears
 5. Order confirmation shown
+
+### Order History & Tracking
+- Completed orders are saved and displayed in the Orders page
+- Each order includes order number, placed date, payment ID, and totals
+- Tracking status is shown with delivery progress steps
+- Orders persist in localStorage for session continuity
 
 ## 📱 Responsive Breakpoints
 
@@ -256,7 +267,6 @@ Feel free to fork, modify, and enhance this project for your own use.
 ## 💡 Future Enhancements
 
 - Admin dashboard for analytics
-- Order history and tracking
 - Wishlist functionality
 - Product reviews and ratings
 - Real payment gateway integration

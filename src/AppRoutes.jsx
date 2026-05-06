@@ -5,6 +5,7 @@ import Home from './page/Home';
 import Register from './page/Register';
 import Products from './page/Products';
 import Cart from './page/Cart';
+import OrderHistory from './page/OrderHistory';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import { useSelector } from 'react-redux';
@@ -28,6 +29,7 @@ export default function AppRoutes() {
           <Route path="/home" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<OrderHistory />} />
         </Route>
       </Routes>
     </>

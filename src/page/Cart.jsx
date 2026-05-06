@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { removeFromCart, updateQuantity, clearCart } from '../features/cartSlice'
+import { removeFromCart, updateQuantity, clearCart, placeOrder } from '../features/cartSlice'
 import { increaseStock, decreaseStock } from '../features/productsSlice'
 import './cart.css'
 
@@ -77,8 +77,9 @@ export default function Cart() {
       image: 'https://assets.razorpay.com/images/rzp.png',
       handler: function (response) {
         if (response?.razorpay_payment_id) {
+          dispatch(placeOrder({ paymentId: response.razorpay_payment_id }))
           alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`)
-          dispatch(clearCart())
+          navigate('/orders')
         } else {
           alert('Payment completed, but no payment ID was returned.')
         }

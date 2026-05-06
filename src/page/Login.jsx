@@ -45,7 +45,6 @@ export default function Login() {
           </div>
 
           {error && <div className="error-alert">{error}</div>}
-
           <form onSubmit={handleLogin} className="auth-form">
             <div className="form-group">
               <label htmlFor="username">Username</label>

@@ -265,11 +265,6 @@
   border: 1px solid rgba(148, 163, 184, 0.18);
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
 }
-  border-radius: 15px;
-  color: #666;
-  border: 2px dashed #ddd;
-  font-size: 1.1rem;
-}
 
 @media (max-width: 1024px) {
   .home-header h1 {
