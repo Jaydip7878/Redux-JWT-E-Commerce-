@@ -6,6 +6,7 @@ import Register from './page/Register';
 import Products from './page/Products';
 import Cart from './page/Cart';
 import OrderHistory from './page/OrderHistory';
+import AdminDashboard from './page/AdminDashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import { useSelector } from 'react-redux';
@@ -15,6 +16,7 @@ export default function AppRoutes() {
   const location = useLocation()
 
   const showNavbar = token && location.pathname !== '/login' && location.pathname !== '/register'
+  const isAdmin = useSelector((state) => state.auth.userData?.role === 'admin' || state.auth.userData?.username === 'Jaydip')
 
   return (
     <>
@@ -30,6 +32,7 @@ export default function AppRoutes() {
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/orders" element={<OrderHistory />} />
+          <Route path="/admin" element={isAdmin ? <AdminDashboard /> : <Navigate to="/home" replace />} />
         </Route>
       </Routes>
     </>

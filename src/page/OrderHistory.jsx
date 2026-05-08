@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './orderHistory.css'
@@ -8,6 +8,16 @@ const statusSteps = ['Processing', 'Shipped', 'Delivered']
 export default function OrderHistory() {
   const orders = useSelector((state) => state.cart.orders)
   const navigate = useNavigate()
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+
+  useEffect(() =>
+  {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark-mode')
+    } else {
+      document.documentElement.classList.remove('dark-mode')
+    }
+  }, [isDarkMode])
 
   const formatDate = (isoString) => {
     try {

@@ -28,8 +28,7 @@ export default function Login() {
     return (
       <div className="auth-page">
         <div className="auth-container">
-          <div className="loading-message">Loadin...</div>
-          <div className="loading-message">Loadin...</div>
+          <div className="loading-message">Loading...</div>
         </div>
       </div>
     )
@@ -84,9 +83,12 @@ export default function Login() {
           </div>
 
           <div className="demo-credentials">
-            <p className="demo-title">Demo Credentials:</p>
+            <p className="demo-title">User Credentials:</p>
             <p>Username: <strong>emilys</strong></p>
             <p>Password: <strong>emilyspass</strong></p>
+            <p className="demo-title">Admin Credentials:</p>
+            <p>Username: <strong>Jaydip</strong></p>
+            <p>Password: <strong>Jaydippass</strong></p>
           </div>
         </div>
       </div>

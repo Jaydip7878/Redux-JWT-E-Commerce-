@@ -27,6 +27,8 @@ export default function Products() {
   const navigate = useNavigate()
   const {products,loading,error,successMsg, isFetched} = useSelector((state)=>state.products)
   const cartItems = useSelector((state)=>state.cart.items)
+  const userData = useSelector((state) => state.auth.userData)
+  const isAdmin = userData?.role === 'admin' || userData?.username === 'Jaydip'
 
   useEffect(()=>{
       if (!isFetched) {
@@ -145,11 +147,14 @@ export default function Products() {
             <p>
               Total Records: <strong>{products.length}</strong>
               {searchText && ` | Showing: ${filteredProducts.length}`}
+              
             </p>
           </div>
-          <button onClick={handleOpenAdd} className="btn-add">
-            + Add Product
-          </button>
+          {isAdmin && (
+            <button onClick={handleOpenAdd} className="btn-add">
+              + Add Product
+            </button>
+          )}
         </div>
 
         {successMsg && <div className="success-bar">{successMsg}</div>}
@@ -193,8 +198,12 @@ export default function Products() {
                     </div>
                     <div className="card-actions">
                       <button onClick={() => handleAddToCart(product)} className="btn-add-cart">🛒 Add</button>
-                      <button onClick={() => handleOpenEdit(product)} className="btn-edit">Edit</button>
-                      <button onClick={() => handleDelete(product.id)} className="btn-delete">Delete</button>
+                      {isAdmin && (
+                        <>
+                          <button onClick={() => handleOpenEdit(product)} className="btn-edit">Edit</button>
+                          <button onClick={() => handleDelete(product.id)} className="btn-delete">Delete</button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
