@@ -49,7 +49,7 @@ export default function OrderHistory() {
               <div key={order.id} className="order-card">
                 <div className="order-summary">
                   <div>
-                    <h3>{order.orderNumber}</h3>
+                    <h3>Order #{order.orderNumber} - {order.customerName}</h3>
                     <p className="order-date">{formatDate(order.placedAt)}</p>
                   </div>
                   <div className="order-status-block">

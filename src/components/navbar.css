@@ -239,8 +239,9 @@ html.dark-mode .btn-theme:hover {
   }
 
   .navbar-menu.active {
-    max-height: 600px;
+    max-height: calc(100vh - 4rem);
     padding: 1rem;
+    overflow-y: auto;
   }
 
   .nav-link {
@@ -263,10 +264,6 @@ html.dark-mode .btn-theme:hover {
   .btn-theme {
     padding: 0.5rem 0.75rem;
     font-size: 0.85rem;
-  }
-
-  .btn-logout {
-    display: none;
   }
 }
 

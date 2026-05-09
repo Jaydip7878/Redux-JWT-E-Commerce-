@@ -77,7 +77,7 @@ export default function Cart() {
       image: 'https://assets.razorpay.com/images/rzp.png',
       handler: function (response) {
         if (response?.razorpay_payment_id) {
-          dispatch(placeOrder({ paymentId: response.razorpay_payment_id }))
+          dispatch(placeOrder({ paymentId: response.razorpay_payment_id, userData }))
           alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`)
           navigate('/orders')
         } else {

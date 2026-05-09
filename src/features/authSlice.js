@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
           username: 'Jaydip',
           email: 'admin@shopease.com',
           role: 'admin',
-          image: 'https://via.placeholder.com/150?text=Jaydip',
+          image: '',
         }
 
         localStorage.setItem('token', ADMIN_TOKEN)
@@ -43,7 +43,10 @@ export const loginUser = createAsyncThunk(
         }),
       })
 
+      console.log(res, "here login")
+
       const data = await res.json()
+      console.log(data)
 
       if (!res.ok) {
         return thunkAPI.rejectWithValue(data.message)
@@ -73,7 +76,7 @@ export const fetchUserData = createAsyncThunk(
             username: 'Jaydip',
             email: 'admin@shopease.com',
             role: 'admin',
-            image: 'https://via.placeholder.com/150?text=Jaydip',
+            image: '',
           }
         )
       }

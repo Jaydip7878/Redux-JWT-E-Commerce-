@@ -19,14 +19,14 @@ export default function AdminDashboard() {
   const totalOrders = orders.length
   const totalProducts = products.length
   const lowStockCount = products.filter((product) => product.stock < 10).length
-  const recentOrders = orders.slice(0, 5)
+  const recentOrders = orders
 
   return (
     <div className="admin-dashboard-page">
       <div className="dashboard-header">
         <div>
           <p className="dashboard-label">Admin Overview</p>
-          <h2>Welcome back, {userData?.firstName || 'Admin'}</h2>
+          <h2>Welcome back, {userData?.firstName}</h2>
           <p className="dashboard-description">
             This dashboard shows the current store summary and the latest orders.
           </p>
@@ -71,6 +71,7 @@ export default function AdminDashboard() {
           <div className="orders-table">
             <div className="orders-row orders-row--head">
               <span>Order #</span>
+              <span>Customer</span>
               <span>Status</span>
               <span>Total</span>
               <span>Date</span>
@@ -78,6 +79,7 @@ export default function AdminDashboard() {
             {recentOrders.map((order) => (
               <div key={order.id} className="orders-row">
                 <span>{order.orderNumber}</span>
+                <span>{order.customerName||"test"}</span>
                 <span>{order.status}</span>
                 <span>₹{order.grandTotal.toFixed(2)}</span>
                 <span>{new Date(order.placedAt).toLocaleDateString()}</span>

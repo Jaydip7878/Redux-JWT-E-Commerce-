@@ -43,6 +43,7 @@ export default function Products() {
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
     dispatch(decreaseStock({ productId: product.id, quantity: 1 }))
+    console.log(product)
     alert(`${product.title} added to cart!`)
   }
 
