@@ -67,10 +67,12 @@ const cartSlice = createSlice({
       const userData = action.payload.userData;
       console.log(action.payload, "userData here")
       const firstName = userData.firstName;
+      const userId = userData.id || userData.username;
       const order = {
         id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         orderNumber: `ORD${Date.now().toString().slice(-8)}`,
         customerName: firstName,
+        userId: userId,
         items: state.items.map((item) => ({
           id: item.id,
           title: item.title,

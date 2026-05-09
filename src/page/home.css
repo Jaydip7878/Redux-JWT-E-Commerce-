@@ -140,17 +140,23 @@
 
 .profile-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.8rem;
   padding: 3.5rem;
 }
 
 @media (max-width: 1200px) {
   .profile-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.6rem;
     padding: 3rem;
   }
+}
+
+.profile-role {
+  margin: 0.75rem 0 0;
+  color: #2563eb;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 @media (max-width: 900px) {
@@ -338,6 +344,51 @@
     grid-column: 1;
   }
 }
+
+.btn-logout,
+.btn-theme {
+  border: none;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  font-weight: 600;
+}
+
+.btn-logout {
+  background: #bd0707;
+  color: white;
+  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.12);
+}
+
+.btn-logout:hover {
+  transform: translateY(-2px);
+  background: #0f172a;
+}
+
+html.dark-mode .btn-logout {
+  background: #d91313;
+}
+
+html.dark-mode .btn-logout:hover {
+  background: #374151;
+}
+
+.btn-theme {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--text-primary);
+}
+
+
+  .btn-logout,
+  .btn-theme {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    
+  }
+
 
 @media (max-width: 480px) {
   .home-container {

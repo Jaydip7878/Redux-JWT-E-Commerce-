@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { logout } from '../features/authSlice'
 import { toggleDarkMode } from '../features/themeSlice'
 import './navbar.css'
 
@@ -9,7 +8,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const token = useSelector((state)=>state.auth.token)
   const cartItems = useSelector((state)=>state.cart.items)
@@ -25,11 +23,7 @@ export default function Navbar() {
     }
   }, [isDarkMode])
 
-  const handleLogout = () =>{
-    dispatch(logout())
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
+ 
 
   const handleToggleDarkMode = () =>{
     dispatch(toggleDarkMode())
@@ -88,7 +82,7 @@ export default function Navbar() {
           <button onClick={handleToggleDarkMode} className="btn-theme" title="Toggle dark mode">
             {isDarkMode ? '☀️' : '🌙'}
           </button>
-          <button onClick={handleLogout} className="btn-logout">Logout</button>
+        
         </div>
       </div>
     </nav>

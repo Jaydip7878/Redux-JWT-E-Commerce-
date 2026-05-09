@@ -6,9 +6,17 @@ import './orderHistory.css'
 const statusSteps = ['Processing', 'Shipped', 'Delivered']
 
 export default function OrderHistory() {
-  const orders = useSelector((state) => state.cart.orders)
+  const allOrders = useSelector((state) => state.cart.orders)
+  const userData = useSelector((state) => state.auth.userData)
   const navigate = useNavigate()
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const orders = userData?.role === 'admin'
+    ? allOrders
+    : allOrders.filter((order) =>
+    {
+      const currentUserId = userData?.id || userData?.username
+      return order.userId ? order.userId === currentUserId : order.customerName === userData?.firstName
+    })
 
   useEffect(() =>
   {
@@ -36,7 +44,7 @@ export default function OrderHistory() {
 
       {orders.length === 0 ? (
         <div className="empty-orders">
-          <p>You don’t have any completed orders yet.</p>
+          <p>You don't have any completed orders yet.</p>
           <button className="btn-primary" onClick={() => navigate('/products')}>
             Browse Products
           </button>

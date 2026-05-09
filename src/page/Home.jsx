@@ -1,19 +1,52 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserData } from '../features/authSlice'
+import { logout } from '../features/authSlice'
+
 import './home.css'
+import { useNavigate } from 'react-router-dom'
 
-export default function Home() {
 
+
+
+
+
+const hasValue = (value) => value !== undefined && value !== null && value !== ''
+
+
+
+
+const renderField = (label, value) =>
+{
+  if (!hasValue(value)) return null
+
+  return (
+    <div key={label} className="profile-item">
+      <label>{label}</label>
+      <p>{value}</p>
+    </div>
+  )
+}
+
+export default function Home()
+{
   const dispatch = useDispatch()
-  const token = useSelector ((state)=>state.auth.token)
-  const { userData, loading, error } = useSelector((state)=>state.auth)
+  const token = useSelector((state) => state.auth.token)
+  const { userData, loading, error } = useSelector((state) => state.auth)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (token && !userData) {
       dispatch(fetchUserData(token))
     }
   }, [token, dispatch, userData])
+
+  const handleLogout = () =>
+  {
+    dispatch(logout())
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
 
   if (loading) {
     return (
@@ -30,99 +63,54 @@ export default function Home() {
       </div>
     )
   }
+  console.log(userData, "here is userData")
+
+  const displayName = [userData?.firstName, userData?.lastName]
+    .filter(hasValue)
+    .join(' ') || userData?.username || 'Your Profile'
+
+  const usernameText = hasValue(userData?.username) ? `@${userData.username}` : null
+  const roleText = hasValue(userData?.role) ? userData.role : null
+
+  const profileFields = [
+    { label: 'Email', value: userData?.email },
+    { label: 'Gender', value: userData?.gender },
+  ]
 
   return (
     <div className="home-container">
       <div className="home-header">
         <h1>Welcome to Your Profile</h1>
-        <p className="subtitle">View and manage your personal information</p>
+        <p className="subtitle">View and manage your personal information in one place.</p>
       </div>
 
       {userData ? (
         <div className="user-profile">
           <div className="profile-card">
             <div className="profile-header">
-              <img 
-                src={userData.image || 'https://via.placeholder.com/150'} 
-                alt="Profile" 
+              <img
+                src={userData.image}
+                alt="Profile"
                 className="profile-image"
               />
+
               <div className="profile-title">
-                <h2>{userData.firstName} {userData.lastName}</h2>
-                <p className="username">@{userData.username}</p>
+                <h2>{displayName}</h2>
+                {usernameText && <p className="username">{usernameText}</p>}
+                {roleText && <p className="profile-role">{roleText}</p>}
               </div>
             </div>
 
             <div className="profile-grid">
-              <div className="profile-item">
-                <label>Email</label>
-                <p>{userData.email}</p>
-              </div>  
-              <div className="profile-item">
-                <label>Phone</label>
-                <p>{userData.phone }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Gender</label>
-                <p>{userData.gender }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Age</label>
-                <p>{userData.age } years</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Birth Date</label>
-                <p>{userData.birthDate }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Blood Group</label>
-                <p>{userData.bloodGroup }</p>
-              </div>
-
-              <div className="profile-item full-width">
-                <label>Address</label>
-                <p>{userData.address?.address }</p>
-              </div>  
-
-              <div className="profile-item">
-                <label>City</label>
-                <p>{userData.address?.city }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>State</label>
-                <p>{userData.address?.state}</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Postal Code</label>
-                <p>{userData.address?.postalCode}</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Country</label>
-                <p>{userData.address?.country }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Company</label>
-                <p>{userData.company?.name }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Department</label>
-                <p>{userData.company?.department }</p>
-              </div>
-
-              <div className="profile-item">
-                <label>Job Title</label>
-                <p>{userData.company?.title }</p>
-              </div>
+              {profileFields.map((field) => renderField(field.label, field.value))}
             </div>
+            <div className="profile-grid">
+              <div className='profile-item'>
+                <p><b>Token:</b>{token}</p>
+              </div>
+
+            </div>
+            <button onClick={handleLogout} className="btn-logout">Logout</button>
           </div>
         </div>
       ) : (

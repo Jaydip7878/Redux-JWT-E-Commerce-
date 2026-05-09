@@ -108,39 +108,6 @@ html.dark-mode .cart-badge {
   color: var(--text-primary);
 }
 
-.btn-logout,
-.btn-theme {
-  border: none;
-  padding: 0.65rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-  font-weight: 600;
-}
-
-.btn-logout {
-  background: #111827;
-  color: white;
-  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.12);
-}
-
-.btn-logout:hover {
-  transform: translateY(-2px);
-  background: #0f172a;
-}
-
-html.dark-mode .btn-logout {
-  background: #4b5563;
-}
-
-html.dark-mode .btn-logout:hover {
-  background: #374151;
-}
-
-.btn-theme {
-  background: rgba(99, 102, 241, 0.12);
-  color: var(--text-primary);
-}
 
 .btn-theme:hover {
   transform: translateY(-2px);
