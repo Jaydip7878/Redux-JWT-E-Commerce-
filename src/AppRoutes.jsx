@@ -5,6 +5,7 @@ import Home from './page/Home';
 import Register from './page/Register';
 import Products from './page/Products';
 import Cart from './page/Cart';
+import Wishlist from './page/Wishlist';
 import OrderHistory from './page/OrderHistory';
 import AdminDashboard from './page/AdminDashboard';
 import PrivateRoute from './components/PrivateRoute';
@@ -31,6 +32,7 @@ export default function AppRoutes() {
           <Route path="/home" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={!isAdmin ? <Wishlist /> : <Navigate to="/home" replace />} />
           <Route path="/orders" element={<OrderHistory />} />
           <Route path="/admin" element={isAdmin ? <AdminDashboard /> : <Navigate to="/home" replace />} />
         </Route>

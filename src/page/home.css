@@ -2,8 +2,8 @@
   min-height: 100vh;
   padding: 3rem 2rem;
   background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 24%),
-    radial-gradient(circle at bottom right, rgba(96, 165, 250, 0.12), transparent 24%),
-    linear-gradient(180deg, #f8fafc 0%, #e7eff8 100%);
+    radial-gradient(circle at bottom right, rgba(8, 145, 178, 0.08), transparent 24%),
+    linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
 }
 
 .home-header {
@@ -24,12 +24,12 @@
   font-size: clamp(2.6rem, 5vw, 3.4rem);
   letter-spacing: -0.05em;
   line-height: 1.03;
-  color: #111827;
+  color: #1f2937;
 }
 
 .subtitle {
   font-size: 1.05rem;
-  color: #4b5563;
+  color: #6b7280;
   margin: 0 auto;
   max-width: 740px;
   font-weight: 500;
@@ -94,7 +94,7 @@
   right: -40px;
   width: 180px;
   height: 180px;
-  background: rgba(59, 130, 246, 0.16);
+  background: rgba(8, 145, 178, 0.12);
   border-radius: 50%;
   z-index: 0;
 }
@@ -356,27 +356,69 @@
 }
 
 .btn-logout {
-  background: #bd0707;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   color: white;
-  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.12);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-logout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-logout:hover::before {
+  left: 100%;
 }
 
 .btn-logout:hover {
-  transform: translateY(-2px);
-  background: #0f172a;
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
 }
 
 html.dark-mode .btn-logout {
-  background: #d91313;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
 
 html.dark-mode .btn-logout:hover {
-  background: #374151;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
 }
 
 .btn-theme {
   background: rgba(99, 102, 241, 0.12);
   color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-theme::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-theme:hover::before {
+  left: 100%;
+}
+
+.btn-theme:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(99, 102, 241, 0.2);
 }
 
 

@@ -39,9 +39,9 @@ html.dark-mode .navbar {
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.25);
+  box-shadow: 0 10px 25px rgba(8, 145, 178, 0.25);
   font-size: 1.2rem;
 }
 
@@ -77,12 +77,12 @@ html.dark-mode .navbar {
 
 .nav-link:hover,
 .nav-link:focus-visible {
-  color: #4f46e5;
+  color: #0891b2;
   transform: translateY(-1px);
 }
 
 .cart-badge {
-  background-color: #ff6b6b;
+  background-color: #ef4444;
   color: white;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
@@ -92,7 +92,7 @@ html.dark-mode .navbar {
 }
 
 html.dark-mode .cart-badge {
-  background-color: #fb7185;
+  background-color: #f87171;
 }
 
 .navbar-user {
@@ -111,16 +111,16 @@ html.dark-mode .cart-badge {
 
 .btn-theme:hover {
   transform: translateY(-2px);
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(8, 145, 178, 0.2);
 }
 
 html.dark-mode .btn-theme {
-  background: rgba(147, 197, 253, 0.14);
+  background: rgba(6, 182, 212, 0.14);
   color: #e2e8f0;
 }
 
 html.dark-mode .btn-theme:hover {
-  background: rgba(147, 197, 253, 0.22);
+  background: rgba(6, 182, 212, 0.22);
 }
 
 .navbar-menu .nav-link:first-child {

@@ -104,7 +104,7 @@ export default function Cart() {
         order_items: items.map((item) => `${item.title} x${item.quantity}`).join(', '),
       },
       theme: {
-        color: '#0a84ff',
+        color: '#0891b2',
       },
     }
 

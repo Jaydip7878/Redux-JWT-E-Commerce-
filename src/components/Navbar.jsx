@@ -11,6 +11,7 @@ export default function Navbar() {
 
   const token = useSelector((state)=>state.auth.token)
   const cartItems = useSelector((state)=>state.cart.items)
+  const wishlistItems = useSelector((state) => state.wishlist.items)
   const userData = useSelector((state)=>state.auth.userData)
   const isDarkMode = useSelector((state)=>state.theme.isDarkMode)
   const isAdmin = userData?.role === 'admin' || userData?.username === 'Jaydip'
@@ -71,10 +72,13 @@ export default function Navbar() {
           <Link to="/home" className="nav-link" onClick={closeMobileMenu}>Home</Link>
           <Link to="/products" className="nav-link" onClick={closeMobileMenu}>Products</Link>
           <Link to="/orders" className="nav-link" onClick={closeMobileMenu}>Orders</Link>
-          {isAdmin && <Link to="/admin" className="nav-link" onClick={closeMobileMenu}>Admin Dashboard</Link>}
+          {!isAdmin && <Link to="/wishlist" className="nav-link" onClick={closeMobileMenu}>
+            ❤️ Wishlist <span className="cart-badge">{wishlistItems.length}</span>
+          </Link>}
           <Link to="/cart" className="nav-link" onClick={closeMobileMenu}>
             🛒 Cart <span className="cart-badge">{cartItems.length}</span>
           </Link>
+          {isAdmin && <Link to="/admin" className="nav-link" onClick={closeMobileMenu}>Admin Dashboard</Link>}
         </div>
 
         <div className="navbar-user">

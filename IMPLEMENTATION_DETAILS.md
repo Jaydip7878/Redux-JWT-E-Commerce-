@@ -193,15 +193,15 @@ Product Fields: id, title, description, price, discountPercentage,
 
 ### Color Palette
 ```
-Primary:    #667eea (Blue-Indigo)
-Secondary:  #764ba2 (Purple)
+Primary:    #0891b2 (Teal)
+Secondary:  #06b6d4 (Cyan)
 Success:    #10b981 (Green)
 Error:      #dc2626 (Red)
 Warning:    #f59e0b (Amber)
-Background: #f5f7fa (Light Gray)
-Border:     #dee2e6 (Light Border)
-Text:       #333 (Dark)
-Muted:      #666 (Gray)
+Background: #f9fafb (Light Gray)
+Border:     #e5e7eb (Light Border)
+Text:       #1f2937 (Dark Gray)
+Muted:      #6b7280 (Medium Gray)
 ```
 
 ### Typography

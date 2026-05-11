@@ -63,31 +63,30 @@ export default function OrderHistory() {
             const activeStep = statusSteps.indexOf(order.status)
             return (
               <div key={order.id} className="order-card">
-                <div className="order-summary">
-                  <div>
-                    <h3>Order #{order.orderNumber} - {order.customerName}</h3>
-                    <p className="order-date">{formatDate(order.placedAt)}</p>
+                <div className="order-header-section">
+                  <div className="order-info">
+                    <h3>📦 Order #{order.orderNumber}</h3>
+                    <p className="order-meta">
+                      <span>Placed on {formatDate(order.placedAt)}</span>
+                      <span>•</span>
+                      <span>{order.items.length} item{order.items.length > 1 ? 's' : ''}</span>
+                    </p>
                   </div>
-                  <div className="order-status-block">
-                    <span className={`order-status ${order.status.toLowerCase()}`}>{order.status}</span>
-                    <span className="tracking-number">Tracking: {order.trackingNumber}</span>
+                  <div className="order-status-section">
+                    <span className={`order-status ${order.status.toLowerCase()}`}>
+                      {order.status === 'Processing' ? '🕒' :
+                        order.status === 'Shipped' ? '🚚' :
+                          '✅'} {order.status}
+                    </span>
+                    {order.trackingNumber && (
+                      <p className="tracking-info">
+                        <strong>Tracking:</strong> {order.trackingNumber}
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                <div className="order-details-grid">
-                  <div>
-                    <p className="detail-label">Subtotal</p>
-                    <p>₹{order.subtotal.toFixed(2)}</p>
-                  </div>
-                  <div>
-                    <p className="detail-label">Tax</p>
-                    <p>₹{order.tax.toFixed(2)}</p>
-                  </div>
-                  <div>
-                    <p className="detail-label">Total</p>
-                    <p className="detail-total">₹{order.grandTotal.toFixed(2)}</p>
-                  </div>
-                </div>
+
 
                 <div className="order-items-section">
                   <h4>Items</h4>
@@ -108,29 +107,65 @@ export default function OrderHistory() {
                         const itemTax = calculateItemTax(order, item)
                         const itemTotal = itemSubtotal + itemTax
                         return (
-                          <tr key={item.id} className="order-item-row">
-                            <td>{item.title}</td>
-
-                            <td>{item.quantity} × ₹{item.price.toFixed(2)}</td>
-                            <td>₹{itemSubtotal.toFixed(2)}</td>
-                            <td>₹{itemTax.toFixed(2)}</td>
-                            <td>₹{itemTotal.toFixed(2)}</td>
+                          <tr key={item.id}>
+                            <td className="product-name">{item.title}</td>
+                            <td className="quantity-price">{item.quantity} × ₹{item.price.toFixed(2)}</td>
+                            <td className="price-values">₹{itemSubtotal.toFixed(2)}</td>
+                            <td className="price-values">₹{itemTax.toFixed(2)}</td>
+                            <td className="price-values total">₹{itemTotal.toFixed(2)}</td>
                           </tr>
                         )
                       })}
+                      <tr className="summary-footer-row">
+                        <td colSpan="5">
+                          <div className="summary-footer">
+                            <div className="summary-line">
+                              <span className="summary-label">Subtotal</span>
+                              <span className="summary-value">₹{order.subtotal.toFixed(2)}</span>
+                            </div>
+                            <div className="summary-line">
+                              <span className="summary-label">Tax</span>
+                              <span className="summary-value">₹{order.tax.toFixed(2)}</span>
+                            </div>
+                            <div className="summary-line total">
+                              <span className="summary-label">Total</span>
+                              <span className="summary-value">₹{order.grandTotal.toFixed(2)}</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
 
                 <div className="tracking-timeline">
-                  {statusSteps.map((step, index) => (
-                    <div key={step} className={`timeline-step ${index <= activeStep ? 'active' : ''}`}>
-                      <div className="timeline-point" />
-                      <div className="timeline-text">
-                        <span>{step}</span>
+                  {statusSteps.map((step, index) =>
+                  {
+                    const isActive = index <= activeStep;
+                    const stepClass = isActive ? `active ${order.status.toLowerCase()}` : '';
+                    const icons = {
+                      'Processing': '⏳',
+                      'Shipped': '🚚',
+                      'Delivered': '✅'
+                    };
+                    return (
+                      <div key={step} className={`timeline-step ${stepClass}`}>
+                        <div className="timeline-point">
+                          {isActive ? icons[step] : '○'}
+                        </div>
+                        <div className="timeline-text">
+                          <span>{step}</span>
+                          {isActive && index === activeStep && (
+                            <small style={{ display: 'block', fontSize: '0.75rem', opacity: 0.8 }}>
+                              {step === 'Processing' ? 'Preparing order' :
+                                step === 'Shipped' ? 'On the way' :
+                                  'Completed'}
+                            </small>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )

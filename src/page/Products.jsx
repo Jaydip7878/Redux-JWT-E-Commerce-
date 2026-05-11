@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addProducts, deleteProduct, fetchProducts, updateProducts, decreaseStock } from '../features/productsSlice'
 import { addToCart } from '../features/cartSlice'
+import { addToWishlist } from '../features/wishlistSlice'
 import './products.css'
 import './products-cards.css'
 
@@ -27,6 +28,7 @@ export default function Products() {
   const navigate = useNavigate()
   const {products,loading,error,successMsg, isFetched} = useSelector((state)=>state.products)
   const cartItems = useSelector((state)=>state.cart.items)
+  const wishlistItems = useSelector((state) => state.wishlist.items)
   const userData = useSelector((state) => state.auth.userData)
   const isAdmin = userData?.role === 'admin' || userData?.username === 'Jaydip'
 
@@ -45,6 +47,12 @@ export default function Products() {
     dispatch(decreaseStock({ productId: product.id, quantity: 1 }))
     console.log(product)
     alert(`${product.title} added to cart!`)
+  }
+
+  const handleAddToWishlist = (product) =>
+  {
+    dispatch(addToWishlist(product))
+    alert(`${product.title} added to wishlist!`)
   }
 
   const handleSubmit = (e) => {
@@ -161,15 +169,39 @@ export default function Products() {
         {successMsg && <div className="success-bar">{successMsg}</div>}
         {error && <div className="error-bar">{error}</div>}
 
-        {/* Search */}
-        <div className="search-row">
-          <input
-            type="text"
-            placeholder="Search by title, brand or category..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className="search-input"
-          />
+        {/* Search and Filters */}
+        <div className="filters-section">
+          <div className="search-row">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
+          <div className="filters-row">
+            <select className="filter-select" onChange={(e) => {/* Add sorting logic */ }}>
+              <option value="">Sort by: Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="newest">Newest</option>
+            </select>
+
+            <select className="filter-select" onChange={(e) => {/* Add category filter */ }}>
+              <option value="">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="books">Books</option>
+              {/* Add more categories */}
+            </select>
+
+            <button className="filter-btn active">All</button>
+            <button className="filter-btn">In Stock</button>
+            <button className="filter-btn">On Sale</button>
+          </div>
         </div>
 
         {loading && <p className="loading-text">Loading products...</p>}
@@ -188,21 +220,33 @@ export default function Products() {
                       onError={(e) => (e.target.style.display = 'none')}
                     />
                     <div className="rating">⭐ {product.rating}</div>
+                    <div className="quick-actions">
+                      <button className="quick-action-btn" title="Quick View">👁️</button>
+                      {!isAdmin && <button className="quick-action-btn" title="Add to Wishlist" onClick={() => handleAddToWishlist(product)}>❤️</button>}
+                    </div>
                   </div>
                   <div className="card-body">
                     <h3 className="card-title">{product.title}</h3>
                     <p className="card-category">{product.category}</p>
                     <p className="card-brand">{product.brand || '-'}</p>
                     <div className="card-row">
-                      <div className="price">₹{product.price}</div>
-                      <div className={product.stock < 10 ? 'stock-low small' : 'stock-ok small'}>{product.stock} left</div>
+                      <div className="price">{product.price}</div>
+                      <div className={product.stock < 10 ? 'stock-low small' : 'stock-ok small'}>
+                        {product.stock < 10 ? 'Low Stock' : `${product.stock} left`}
+                      </div>
                     </div>
                     <div className="card-actions">
-                      <button onClick={() => handleAddToCart(product)} className="btn-add-cart">🛒 Add</button>
+                      <button onClick={() => handleAddToCart(product)} className="btn-add-cart">
+                        🛒 Add to Cart
+                      </button>
                       {isAdmin && (
                         <>
-                          <button onClick={() => handleOpenEdit(product)} className="btn-edit">Edit</button>
-                          <button onClick={() => handleDelete(product.id)} className="btn-delete">Delete</button>
+                          <button onClick={() => handleOpenEdit(product)} className="btn-edit">
+                            ✏️ Edit
+                          </button>
+                          <button onClick={() => handleDelete(product.id)} className="btn-delete">
+                            🗑️ Delete
+                          </button>
                         </>
                       )}
                     </div>

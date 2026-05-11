@@ -65,11 +65,13 @@
    - ✅ Improved component structure
 
 ## Color Scheme
-- **Primary:** #667eea (Blue-Indigo)
-- **Secondary:** #764ba2 (Purple)
+- **Primary:** #0891b2 (Teal/Cyan)
+- **Secondary:** #06b6d4 (Cyan)
+- **Text Primary:** #1f2937 (Dark Gray)
+- **Text Secondary:** #6b7280 (Medium Gray)
 - **Success:** #10b981 (Green)
 - **Error:** #dc2626 (Red)
-- **Background:** #f5f7fa (Light Gray)
+- **Background:** #f9fafb (Light Gray)
 
 ## Features Implemented
 
