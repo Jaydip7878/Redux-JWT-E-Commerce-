@@ -35,6 +35,14 @@ export default function OrderHistory() {
     }
   }
 
+  const calculateItemTax = (order, item) =>
+  {
+    const isAllGroceries = order.items.every((i) => i.category === "groceries")
+    const taxRate = isAllGroceries ? 0.05 : 0.18
+    const itemSubtotal = item.price * item.quantity
+    return Number((itemSubtotal * taxRate).toFixed(2))
+  }
+
   return (
     <div className="order-page">
       <div className="order-header">
@@ -83,14 +91,35 @@ export default function OrderHistory() {
 
                 <div className="order-items-section">
                   <h4>Items</h4>
-                  <ul>
-                    {order.items.map((item) => (
-                      <li key={item.id} className="order-item-row">
-                        <span>{item.title}</span>
-                        <span>{item.quantity} × ₹{item.price.toFixed(2)}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <table className="items-table">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Quantity × Price</th>
+                        <th>Subtotal</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {order.items.map((item) =>
+                      {
+                        const itemSubtotal = item.price * item.quantity
+                        const itemTax = calculateItemTax(order, item)
+                        const itemTotal = itemSubtotal + itemTax
+                        return (
+                          <tr key={item.id} className="order-item-row">
+                            <td>{item.title}</td>
+
+                            <td>{item.quantity} × ₹{item.price.toFixed(2)}</td>
+                            <td>₹{itemSubtotal.toFixed(2)}</td>
+                            <td>₹{itemTax.toFixed(2)}</td>
+                            <td>₹{itemTotal.toFixed(2)}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
                 </div>
 
                 <div className="tracking-timeline">

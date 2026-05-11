@@ -68,6 +68,13 @@ const cartSlice = createSlice({
       console.log(action.payload, "userData here")
       const firstName = userData.firstName;
       const userId = userData.id || userData.username;
+      const subtotal = state.totalPrice;
+
+      const isAllGroceries = state.items.every((item) => item.category === "groceries");
+      const taxRate = isAllGroceries ? 0.05 : 0.18;
+      const tax = Number((subtotal * taxRate).toFixed(2));
+      const grandTotal = Number((subtotal + tax).toFixed(2));
+
       const order = {
         id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         orderNumber: `ORD${Date.now().toString().slice(-8)}`,
@@ -80,9 +87,9 @@ const cartSlice = createSlice({
           quantity: item.quantity,
           category: item.category,
         })),
-        subtotal: state.totalPrice,
-        tax: Number((state.totalPrice * 0.1).toFixed(2)),
-        grandTotal: Number((state.totalPrice * 1.1).toFixed(2)),
+        subtotal: subtotal,
+        tax: tax,
+        grandTotal: grandTotal,
         placedAt: new Date().toISOString(),
         paymentId: action.payload.paymentId,
         status: 'Processing',

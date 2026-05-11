@@ -56,6 +56,17 @@ export default function Cart() {
     dispatch(clearCart())
   }
 
+  const calculateTax = () =>
+  {
+    if (items.length === 0) return 0
+    const isAllGroceries = items.every((item) => item.category === "groceries")
+    const taxRate = isAllGroceries ? 0.05 : 0.18
+    return Number((totalPrice * taxRate).toFixed(2))
+  }
+
+  const tax = calculateTax()
+  const grandTotal = totalPrice + tax
+
   const handleCheckout = async () => {
     if (items.length === 0) {
       alert('Your cart is empty. Add a product first.')
@@ -70,7 +81,7 @@ export default function Cart() {
 
     const options = {
       key: RAZORPAY_KEY,
-      amount: Math.round((totalPrice + totalPrice * 0.1) * 100), // Include tax in total
+      amount: Math.round(grandTotal * 100),
       currency: 'INR',
       name: 'Demo Shop',
       description: 'Order payment',
@@ -202,12 +213,12 @@ export default function Cart() {
                 </div>
                 <div className="summary-row">
                   <span>Tax:</span>
-                  <span>₹{(totalPrice * 0.1).toFixed(2)}</span>
+                    <span>₹{tax.toFixed(2)}</span>
                 </div>
                 <hr />
                 <div className="summary-row total">
                   <span>Total:</span>
-                  <span>₹{(totalPrice + totalPrice * 0.1).toFixed(2)}</span>
+                    <span>₹{grandTotal.toFixed(2)}</span>
                 </div>
 
                 <button onClick={handleCheckout} className="btn-checkout">
